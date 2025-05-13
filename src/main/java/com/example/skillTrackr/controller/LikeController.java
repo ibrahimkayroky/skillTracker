@@ -30,4 +30,9 @@ public class LikeController {
         String message = likeService.unLikeSkill(skillId, principal.getName());
         return ResponseEntity.ok(message);
     }
+
+    @GetMapping("/{skillId}/count")
+    public int getLikes(@RequestParam Long skillId){
+        return likeService.countLikes(skillId);
+    }
 }
