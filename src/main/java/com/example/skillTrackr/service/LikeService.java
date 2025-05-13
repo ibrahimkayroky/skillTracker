@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,6 +60,12 @@ public class LikeService {
 
         likeRepository.delete(like.get());
         return "Skill unLiked successfully";
+    }
+
+    public int countLikes(Long skillId){
+        Skill skill = skillRepository.findById(skillId)
+                .orElseThrow(() -> new RuntimeException("skill not found"));
+        return likeRepository.findAllBySkill(skill).size();
     }
 
 
