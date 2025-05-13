@@ -1,8 +1,11 @@
 package com.example.skillTrackr.service;
 
 import com.example.skillTrackr.model.Follow;
+import com.example.skillTrackr.model.Like;
+import com.example.skillTrackr.model.Skill;
 import com.example.skillTrackr.model.User;
 import com.example.skillTrackr.repository.FollowRepository;
+import com.example.skillTrackr.repository.SkillRepository;
 import com.example.skillTrackr.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -75,4 +78,6 @@ public class FollowService {
                 .map(Follow::getFollowing)
                 .toList();
     }
+
+
 }
