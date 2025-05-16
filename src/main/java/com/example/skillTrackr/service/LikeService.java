@@ -22,6 +22,7 @@ public class LikeService {
     private final LikeRepository likeRepository;
     private final UserRepository userRepository;
     private final SkillRepository skillRepository;
+    private final NotificationService notificationService;
 
     public String likeSkill(Long skillId, String userEmail){
         User user = userRepository.findByEmail(userEmail)
@@ -39,6 +40,10 @@ public class LikeService {
                 .skill(skill)
                 .likedAt(LocalDateTime.now())
                 .build();
+
+        notificationService.sendNotification(
+                skill.getUser().getId(), userEmail + " liked your skill: " + skill.getName()
+        );
 
         likeRepository.save(like);
         return "Skill liked Successfully";
