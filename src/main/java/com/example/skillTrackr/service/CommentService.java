@@ -22,6 +22,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final SkillRepository skillRepository;
+    private final NotificationService notificationService;
 
     public String addComment(Long skillId, String userEmail, CommentDTO commentDTO){
         User user = userRepository.findByEmail(userEmail)
@@ -36,6 +37,10 @@ public class CommentService {
                 .skill(skill)
                 .commentedAt(LocalDateTime.now())
                 .build();
+
+        notificationService.sendNotification(
+                skill.getUser().getId(), userEmail + " commented on your skill: " + commentDTO.getContent()
+        );
 
         commentRepository.save(comment);
         return "comment added";
