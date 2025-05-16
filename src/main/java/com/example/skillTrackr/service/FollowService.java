@@ -22,6 +22,7 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     public String followUser(String followerEmail, Long followingId) {
         User follower = userRepository.findByEmail(followerEmail)
@@ -44,6 +45,10 @@ public class FollowService {
                 .following(following)
                 .followedAt(LocalDateTime.now())
                 .build();
+
+        notificationService.sendNotification(
+                followingId,followerEmail + " started following you."
+        );
 
         followRepository.save(follow);
         return "User followed successfully";
