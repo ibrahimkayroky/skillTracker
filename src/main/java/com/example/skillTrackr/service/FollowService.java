@@ -23,6 +23,7 @@ public class FollowService {
     private final FollowRepository followRepository;
     private final UserRepository userRepository;
     private final NotificationService notificationService;
+    private final BadgeService badgeService;
 
     public String followUser(String followerEmail, Long followingId) {
         User follower = userRepository.findByEmail(followerEmail)
@@ -51,6 +52,10 @@ public class FollowService {
         );
 
         followRepository.save(follow);
+        if (followRepository.findByFollower(following).size() == 1) {
+            badgeService.grantBadge(follower, "Team Player", "You followed your first user!");
+        }
+
         return "User followed successfully";
     }
 
