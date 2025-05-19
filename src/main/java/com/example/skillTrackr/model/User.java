@@ -29,6 +29,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    private Integer score = 0;
+
     private String bio;
 
     @Enumerated(EnumType.STRING)
