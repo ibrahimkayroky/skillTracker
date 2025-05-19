@@ -4,10 +4,7 @@ import com.example.skillTrackr.model.Notification;
 import com.example.skillTrackr.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,12 @@ public class NotificationController {
     public ResponseEntity<List<Notification>> getUserNotifications(@PathVariable Long userId) {
         return ResponseEntity.ok(notificationService.getNotificationsForUser(userId));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteNotification(@PathVariable Long id) {
+        notificationService.deleteNotification(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
