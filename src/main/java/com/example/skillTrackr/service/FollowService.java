@@ -56,6 +56,11 @@ public class FollowService {
             badgeService.grantBadge(follower, "Team Player", "You followed your first user!");
         }
 
+        User Following = follow.getFollowing();
+        Following.setScore(Following.getScore() + 5);
+        userRepository.save(Following);
+
+
         return "User followed successfully";
     }
 
