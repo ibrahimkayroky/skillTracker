@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.lang.management.LockInfo;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -29,4 +30,6 @@ public class CommunityPost {
     @ManyToOne
     @JoinColumn(name = "community_id", nullable = false)
     private Community community;
+
+    private LocalDateTime createdAt;
 }
