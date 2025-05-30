@@ -1,6 +1,7 @@
 package com.example.skillTrackr.service;
 
 import com.example.skillTrackr.dto.JoinCommunityRequest;
+import com.example.skillTrackr.enums.CommunityRole;
 import com.example.skillTrackr.model.*;
 import com.example.skillTrackr.repository.CommunityMemberRepository;
 import com.example.skillTrackr.repository.CommunityRepository;
