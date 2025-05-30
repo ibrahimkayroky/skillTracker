@@ -1,5 +1,6 @@
 package com.example.skillTrackr.model;
 
+import com.example.skillTrackr.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
