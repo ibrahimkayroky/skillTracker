@@ -1,4 +1,4 @@
-package com.example.skillTrackr.model;
+package com.example.skillTrackr.enums;
 
 public enum Role {
     USER,
