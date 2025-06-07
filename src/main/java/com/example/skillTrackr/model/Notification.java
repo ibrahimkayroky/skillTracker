@@ -1,5 +1,6 @@
 package com.example.skillTrackr.model;
 
+import com.example.skillTrackr.enums.NotificationType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,4 +30,8 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Enumerated(EnumType.STRING)
+    private NotificationType type;
+
 }
