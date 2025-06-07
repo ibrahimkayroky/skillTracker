@@ -34,4 +34,12 @@ public class Message {
 
     private Boolean seen;
 
+    @ManyToOne
+    @JoinColumn(name = "conversation_id")
+    private Conversation conversation;
+
+    @PrePersist
+    public void prePersist() {
+        this.sentAt = LocalDateTime.now();
+    }
 }
