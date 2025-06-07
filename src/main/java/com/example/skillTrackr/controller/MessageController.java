@@ -32,4 +32,10 @@ public class MessageController {
         return ResponseEntity.ok(messageService.getUnreadMessages(userId));
     }
 
+    @GetMapping("/conversation/{conversationId}")
+    public ResponseEntity<List<MessageDTO>> getMessages(@PathVariable Long conversationId) {
+        List<MessageDTO> messages = messageService.getMessagesInConversation(conversationId);
+        return ResponseEntity.ok(messages);
+    }
+
 }
