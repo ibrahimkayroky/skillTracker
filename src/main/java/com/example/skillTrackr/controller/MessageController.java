@@ -38,4 +38,10 @@ public class MessageController {
         return ResponseEntity.ok(messages);
     }
 
+    @PutMapping("/seen/{messageId}")
+    public ResponseEntity<String> markMessageAsSeen(@PathVariable Long messageId) {
+        return ResponseEntity.ok(messageService.markMessageAsSeen(messageId));
+    }
+
+
 }

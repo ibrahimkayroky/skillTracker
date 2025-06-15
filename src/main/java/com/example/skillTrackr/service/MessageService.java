@@ -59,8 +59,20 @@ public class MessageService {
                         .senderUsername(message.getSender().getEmail())
                         .content(message.getContent())
                         .timestamp(message.getSentAt())
+                        .seen(message.getSeen())
                         .build())
                 .collect(Collectors.toList());
     }
+
+    public String markMessageAsSeen(Long messageId) {
+        Message message = messageRepository.findById(messageId)
+                .orElseThrow(() -> new RuntimeException("Message not found"));
+
+        message.setSeen(true);
+        messageRepository.save(message);
+
+        return "Marked as seen";
+    }
+
 
 }

@@ -32,7 +32,7 @@ public class Message {
 
     private LocalDateTime sentAt;
 
-    private Boolean seen;
+    private Boolean seen = false;
 
     @ManyToOne
     @JoinColumn(name = "conversation_id")
