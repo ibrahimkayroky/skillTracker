@@ -1,6 +1,7 @@
 package com.example.skillTrackr.controller;
 
 import com.example.skillTrackr.dto.CreateGroupRequest;
+import com.example.skillTrackr.dto.SendGroupMessageRequest;
 import com.example.skillTrackr.model.GroupConversation;
 import com.example.skillTrackr.model.GroupMessage;
 import com.example.skillTrackr.repository.GroupConversationRepository;
@@ -34,4 +35,11 @@ public class GroupController {
         List<GroupMessage> messages = messageRepo.findByGroupOrderBySentAtAsc(group);
         return ResponseEntity.ok(messages);
     }
+
+    @PostMapping("/{groupId}/send")
+    public ResponseEntity<GroupMessage> sendMessageToGroup(@RequestBody SendGroupMessageRequest request) {
+        GroupMessage sentMessage = groupService.sendGroupMessage(request);
+        return ResponseEntity.ok(sentMessage);
+    }
+
 }
