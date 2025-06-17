@@ -1,8 +1,11 @@
 package com.example.skillTrackr.service;
 
+import com.example.skillTrackr.dto.SendGroupMessageRequest;
 import com.example.skillTrackr.model.GroupConversation;
+import com.example.skillTrackr.model.GroupMessage;
 import com.example.skillTrackr.model.User;
 import com.example.skillTrackr.repository.GroupConversationRepository;
+import com.example.skillTrackr.repository.GroupMessageRepository;
 import com.example.skillTrackr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ public class GroupService {
 
     private final GroupConversationRepository groupConversationRepository;
     private final UserRepository userRepository;
+    private final GroupMessageRepository groupMessageRepository;
 
     public GroupConversation createGroup(String name, String desc, String creatorUsername, Set<String> membernames) {
         User creator = userRepository.findByEmail(creatorUsername).orElseThrow();
@@ -32,6 +36,26 @@ public class GroupService {
                 .build();
 
         return groupConversationRepository.save(groupConversation);
+    }
+
+    public GroupMessage sendGroupMessage(SendGroupMessageRequest request) {
+        GroupConversation group = groupConversationRepository.findById(request.getGroupId())
+                .orElseThrow(() -> new RuntimeException("Group not found"));
+
+        User sender = userRepository.findByEmail(request.getSenderUsername())
+                .orElseThrow(() -> new RuntimeException("Sender not found"));
+
+        if (!group.getMembers().contains(sender)) {
+            throw new RuntimeException("User not in group");
+        }
+
+        GroupMessage message = GroupMessage.builder()
+                .group(group)
+                .sender(sender)
+                .content(request.getContent())
+                .build();
+
+        return groupMessageRepository.save(message);
     }
 
 }
