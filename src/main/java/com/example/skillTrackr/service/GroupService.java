@@ -1,6 +1,7 @@
 package com.example.skillTrackr.service;
 
 import com.example.skillTrackr.dto.SendGroupMessageRequest;
+import com.example.skillTrackr.enums.GroupPrivacy;
 import com.example.skillTrackr.model.GroupConversation;
 import com.example.skillTrackr.model.GroupMessage;
 import com.example.skillTrackr.model.User;
@@ -10,6 +11,7 @@ import com.example.skillTrackr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -56,6 +58,23 @@ public class GroupService {
                 .build();
 
         return groupMessageRepository.save(message);
+    }
+
+    public List<GroupConversation> getGroupsOfUser(String username){
+        User user = userRepository.findByEmail(username).orElseThrow();
+        return groupConversationRepository.findByMembersContains(user);
+    }
+
+    public List<GroupConversation> getPublicGroups() {
+        return groupConversationRepository.findByPrivacy(GroupPrivacy.PUBLIC);
+    }
+
+    public GroupConversation joinGroup(Long groupId, String username) {
+        GroupConversation groupConversation = groupConversationRepository.findById(groupId).orElseThrow();
+        User user = userRepository.findByEmail(username).orElseThrow();
+
+        groupConversation.getMembers().add(user);
+        return groupConversationRepository.save(groupConversation);
     }
 
 }
