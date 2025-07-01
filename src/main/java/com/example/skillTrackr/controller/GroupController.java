@@ -42,4 +42,20 @@ public class GroupController {
         return ResponseEntity.ok(sentMessage);
     }
 
+    @GetMapping("/my-groups")
+    public ResponseEntity<List<GroupConversation>> myGroups(@RequestParam String username) {
+        return ResponseEntity.ok(groupService.getGroupsOfUser(username));
+    }
+
+    @GetMapping("/public")
+    public ResponseEntity<List<GroupConversation>> publicGroups() {
+        return ResponseEntity.ok(groupService.getPublicGroups());
+    }
+
+    @PostMapping("/{groupId}/join")
+    public ResponseEntity<GroupConversation> joinGroup(@PathVariable Long groupId, @RequestParam String username) {
+        return ResponseEntity.ok(groupService.joinGroup(groupId, username));
+    }
+
+
 }
