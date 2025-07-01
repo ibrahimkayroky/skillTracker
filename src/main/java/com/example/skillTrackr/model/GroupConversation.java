@@ -1,5 +1,6 @@
 package com.example.skillTrackr.model;
 
+import com.example.skillTrackr.enums.GroupPrivacy;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,9 @@ public class GroupConversation {
 
     @ManyToOne
     private User creator;
+
+    @Enumerated
+    private GroupPrivacy privacy;
 
     @ManyToMany
     @JoinTable(
